@@ -6,22 +6,26 @@ on:
   pull_request:
     branches: [ main, master ]
 
+# Set global environment variables across all parallel matrix jobs
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   test-matrix:
     runs-on: ubuntu-latest
     
-    # Define the isolated execution paths
     strategy:
-      fail-fast: false # Prevents an API failure from killing a running UI container prematurely
+      fail-fast: false 
       matrix:
-        test-type: [ui, api] # Defines two separate parallel execution nodes
+        test-type: [ui, api] 
 
     name: Execute ${{ matrix.test-type }} Tests
     steps:
+      # Upgraded to @v4 (fully compatible with Node 24 runtime flag execution)
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python Engine
+      # Upgraded to @v5
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -32,25 +36,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Conditional Speed Optimization: Only download heavy browser binaries on the UI worker node
       - name: Install Playwright System Binaries (UI Node Only)
         if: matrix.test-type == 'ui'
         run: |
           playwright install --with-deps chromium
 
-            # Targeted Marker Filtering
-            # Targeted Marker Filtering
       - name: Run Matrix Test Subsets
         run: |
           if [ "${{ matrix.test-type }}" = "ui" ]; then
-            # Cleaned: Removed --headless entirely. Playwright defaults to headless natively.
             pytest -m ui -s -n 2
           else
-            # API Worker completely skips browser tasks, maximizing speed
             pytest -m api -s
           fi
 
-      # Upload independent, targeted artifacts for each isolated execution run
+      # Upgraded to @v4
       - name: Upload Test Report (${{ matrix.test-type }})
         if: always()
         uses: actions/upload-artifact@v4
