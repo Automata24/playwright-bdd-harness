@@ -43,7 +43,7 @@ jobs:
         run: |
           if [ "${{ matrix.test-type }}" = "ui" ]; then
             # UI Worker launches with dual cores parallel processing enabled
-            pytest -m ui --headed=false -s -n 2
+            pytest -m ui --headed -s -n 2
           else
             # API Worker completely skips browser tasks, maximizing speed
             pytest -m api -s
