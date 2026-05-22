@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main, master ]
 
-# Set global environment variables across all parallel matrix jobs
+# Global environment variables to force Node 24 runtime compliance
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -21,11 +21,13 @@ jobs:
 
     name: Execute ${{ matrix.test-type }} Tests
     steps:
+      # Upgraded to v5 (Natively compiled for Node 24 runtime support)
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
+      # Upgraded to v6 (Natively compiled for Node 24 runtime support)
       - name: Set up Python Engine
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -48,9 +50,10 @@ jobs:
             pytest -m api -s
           fi
 
+      # Upgraded to v6 (Natively compiled for Node 24 runtime support)
       - name: Upload Test Report (${{ matrix.test-type }})
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pytest-html-report-${{ matrix.test-type }}
           path: report.html
