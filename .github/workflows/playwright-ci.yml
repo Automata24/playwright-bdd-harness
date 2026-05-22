@@ -39,16 +39,16 @@ jobs:
           playwright install --with-deps chromium
 
             # Targeted Marker Filtering
+            # Targeted Marker Filtering
       - name: Run Matrix Test Subsets
         run: |
           if [ "${{ matrix.test-type }}" = "ui" ]; then
-            # Added explicit --headless argument to guarantee headless execution in cloud environments
-            pytest -m ui -s -n 2 --headless
+            # Cleaned: Removed --headless entirely. Playwright defaults to headless natively.
+            pytest -m ui -s -n 2
           else
             # API Worker completely skips browser tasks, maximizing speed
             pytest -m api -s
           fi
-
 
       # Upload independent, targeted artifacts for each isolated execution run
       - name: Upload Test Report (${{ matrix.test-type }})
