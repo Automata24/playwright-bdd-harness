@@ -1,0 +1,59 @@
+name: Playwright BDD Parallel Matrix Suite
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-matrix:
+    runs-on: ubuntu-latest
+    
+    # Define the isolated execution paths
+    strategy:
+      fail-fast: false # Prevents an API failure from killing a running UI container prematurely
+      matrix:
+        test-type: [ui, api] # Defines two separate parallel execution nodes
+
+    name: Execute ${{ matrix.test-type }} Tests
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python Engine
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Pinned Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Conditional Speed Optimization: Only download heavy browser binaries on the UI worker node
+      - name: Install Playwright System Binaries (UI Node Only)
+        if: matrix.test-type == 'ui'
+        run: |
+          playwright install --with-deps chromium
+
+      # Targeted Marker Filtering
+      - name: Run Matrix Test Subsets
+        run: |
+          if [ "${{ matrix.test-type }}" = "ui" ]; then
+            # UI Worker launches with dual cores parallel processing enabled
+            pytest -m ui --headed=false -s -n 2
+          else
+            # API Worker completely skips browser tasks, maximizing speed
+            pytest -m api -s
+          fi
+
+      # Upload independent, targeted artifacts for each isolated execution run
+      - name: Upload Test Report (${{ matrix.test-type }})
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-html-report-${{ matrix.test-type }}
+          path: report.html
+          if-no-files-found: ignore

@@ -1,0 +1,9 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-n auto --slowmo=500 --browser chromium --html=report.html --self-contained-html --reruns 2 -s"
+
+# Register your custom markers here
+markers = [
+    "ui: Web frontend UI user journey tests utilizing Playwright browsers",
+    "api: Backend REST microservice communication and integration tests"
+]
