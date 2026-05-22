@@ -1,6 +1,6 @@
 [tool.pytest.ini_options]
 pythonpath = ["."]
-addopts = "-n auto --slowmo=500 --browser chromium --html=report.html --self-contained-html --reruns 2 -s"
+addopts = "-n auto --browser chromium --html=report.html --self-contained-html --reruns 2 -s"
 
 # Register your custom markers here
 markers = [
