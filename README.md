@@ -4,6 +4,16 @@
 
 This test automation framework was architected and developed using an advanced AI-pair programming model. Rather than relying on boilerplate code generators, the framework was systematically built through a deliberate, iterative prompting strategy. As the lead test engineer, I provided structural guardrails, defined strict design constraints (such as enforcing a single line of data entry per Gherkin scenario, demanding comprehensive Senior QA assertions, and separating UI and API concerns), and rigorously troubleshooted environment configurations. The AI acted as an adaptive technical collaborator—translating these high-level architectural requirements into production-ready Page Object Models, custom Pytest configurations, data-driven Gherkin matrices, and a parallelized CI/CD GitHub Actions matrix. This collaborative engineering approach resulted in a highly scalable, non-hardcoded, and optimized automation harness built to strict modern software engineering standards.
 
+---
+
+## 🏛️ Rationale Behind Key Architectural Decisions
+
+This framework was built with an intentional selection of modern tools designed to balance engineering depth with project maintainability:
+
+* **Playwright, Python, and Pytest (Versatility & Future-Proofing)**: This core stack was selected over legacy tools (like Selenium) due to its native speed, automatic waiting mechanisms, and excellent support for modern web applications. Python and Pytest provide a highly scalable ecosystem that is widely adopted, easy to learn for onboarding engineers, and perfectly equipped to handle both web-first UI interactions and lightweight REST API validations in a single codebase.
+* **Behavior-Driven Development (BDD)**: Implementing `pytest-bdd` bridges the gap between technical and non-technical stakeholders. By translating code execution into a neatly readable, human-friendly Gherkin format, user journeys become self-documenting. This enables seamless, data-driven scaling where complex user variations and API payloads can be modified directly within plain-text matrices without writing new automation code.
+* **Page Object Model (POM)**: To guarantee long-term reusability and eliminate code duplication, frontend UI locators and actions are strictly encapsulated within dedicated Page Object classes. This structural isolation ensures that if an element or locator changes on the target website, it only needs to be updated once inside the Page Object file, shielding the step definitions from breaking and ensuring long-term maintenance scalability.
+
 
 # Playwright Python BDD Automation Framework
 
