@@ -1,3 +1,7 @@
+[![Playwright BDD Parallel Matrix Suite](https://github.com/Automata24/playwright-bdd-harness)](https://github.com/Automata24/playwright-bdd-harness)
+
+# Playwright Python BDD Automation Framework
+
 ---
 
 ## 🤖 AI-Assisted Architecture & Engineering Disclosure
