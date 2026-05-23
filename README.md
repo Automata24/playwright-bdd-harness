@@ -1,6 +1,3 @@
-[![Playwright BDD Parallel Matrix Suite](https://github.com/Automata24/playwright-bdd-harness)](https://github.com/Automata24/playwright-bdd-harness)
-
-
 # Playwright Python BDD Automation Framework
 
 A senior-grade, highly optimized test automation harness combining **Playwright Python**, **Pytest-BDD**, and **Pytest-XDist**. This project validates both end-to-end user frontend journeys on **SauceDemo** and backend microservices integration on **DummyJSON**.
