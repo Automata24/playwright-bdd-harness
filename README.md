@@ -134,3 +134,12 @@ On every single `push` or `pull_request` targeting your primary branches, GitHub
 2. **`api` Worker**: Simultaneously launches an independent container, drops browser downloads completely to preserve processing minutes, and targets backend routing via `pytest -m api`.
 
 Reports are collected from both nodes and stored separately as zip file artifacts inside the specific GitHub Actions execution panel.
+
+---
+
+## 📝 Documented Project Assumptions
+
+During the engineering phase of this automation framework, the following technical and environment assumptions were established:
+1. **Mock API Lifecycle Boundaries (DummyJSON)**: It is assumed that `https://dummyjson.com` behaves as a mock web service. Therefore, custom entities generated via `POST` routes are simulated dynamically in memory but not stored permanently on the server database. To avoid `404 Not Found` errors during the lifecycle `DELETE` verification step, the framework intentionally targets an existing system seed entity data slot (`/carts/1`) to validate mock engine deletion profiles accurately.
+2. **REST Status Specification Standards**: It is assumed that modern REST APIs adhere to strict HTTP standards. The product cart generation workflow explicitly validates a `201 Created` response payload on successful entity creations rather than a standard `200 OK`.
+3. **Headless Execution Priority**: It is assumed that continuous integration cloud nodes (GitHub Actions agents) are completely headless and lack display rendering drivers. The framework default options are optimized to execute in the background headlessly, reserving visible headed rendering flags purely for local developer diagnostic overrides.
