@@ -2,9 +2,12 @@
 
 # Playwright Python BDD Automation Framework
 
+A senior-grade, highly optimized test automation harness combining **Playwright Python**, **Pytest-BDD**, and **Pytest-XDist**. This project validates both end-to-end user frontend journeys on **SauceDemo** and backend microservices integration on **DummyJSON**.
+
 ---
 
 ## 🤖 AI-Assisted Architecture & Engineering Disclosure
+
 
 This test automation framework was architected and developed using an advanced AI-pair programming model. Rather than relying on boilerplate code generators, the framework was systematically built through a deliberate, iterative prompting strategy. As the lead test engineer, I provided structural guardrails, defined strict design constraints (such as enforcing a single line of data entry per Gherkin scenario, demanding comprehensive Senior QA assertions, and separating UI and API concerns), and rigorously troubleshooted environment configurations. The AI acted as an adaptive technical collaborator—translating these high-level architectural requirements into production-ready Page Object Models, custom Pytest configurations, data-driven Gherkin matrices, and a parallelized CI/CD GitHub Actions matrix. This collaborative engineering approach resulted in a highly scalable, non-hardcoded, and optimized automation harness built to strict modern software engineering standards.
 
